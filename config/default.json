@@ -1,5 +1,5 @@
 {
-  "mongoURI": "mongodb+srv://devconnector:hnwtJ2eLsyzcHxiT@devconnector-hizsf.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "mysecret",
-  "githubToken": "04d128ac32370f8ace2c7a196dd749b812b14a02"
+  "mongoURI": {{mongo_uri}},
+  "jwtSecret": {{secret}},
+  "githubToken": {{github_token}}
 }
