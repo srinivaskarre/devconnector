@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REGISTER_FAIL, REGISTER_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL, USER_LOAD_SUCCESS, USER_LOAD_FAIL } from "./authTypes";
+import { REGISTER_FAIL, REGISTER_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL, USER_LOAD_SUCCESS, USER_LOAD_FAIL, LOG_OUT } from "./authTypes";
 import { setupAlert } from "../alert/alertAction";
 import {setAuthToken} from '../../utils/util'
 
@@ -25,6 +25,7 @@ export const login = (email, password) => {
         type: LOGIN_SUCCESS,
         payload: resp.data
       })
+      dispatch(loadUser())
     } catch (err) {
         console.log('Login failed')
         dispatch({
@@ -65,6 +66,7 @@ export const register = ( name, email, password ) => {
         type: REGISTER_SUCCESS,
         payload: resp.data,
       });
+      dispatch(loadUser())
       dispatch(setupAlert('Singup Success', "danger"))
     } catch (err) {
       console.log("error occurred");
@@ -99,3 +101,14 @@ export const loadUser = () => {
     }
   }
 }
+
+export const logout = ()=> {
+  return (dispatch) => {
+      // console.log('calling logout')
+      dispatch({
+        type: LOG_OUT
+      })
+
+  }
+}
+

@@ -10,6 +10,9 @@ import store from './redux/store';
 import Alert from './components/layout/Alert';
 import {setAuthToken} from './utils/util'
 import {loadUser} from './redux/auth/authActions'
+import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/route/PrivateRoute';
+import CreateProfile from './components/profileforms/CreateProfile';
 
 setAuthToken();
 
@@ -30,6 +33,8 @@ const App = () => {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path='/create-profile' component={CreateProfile} />
         </Switch>
 
       </section>

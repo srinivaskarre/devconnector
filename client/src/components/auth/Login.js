@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {connect} from 'react-redux'
 import {login} from '../../redux/auth/authActions'
 
@@ -22,6 +22,11 @@ const Login = (props) => {
         e.preventDefault()
         props.login(email,password)
         
+    }
+
+    //if Logged in already, redirect to dashboard
+    if(props.isAuthenticated){
+      return <Redirect to="/dashboard" />
     }
 
   return (
@@ -61,4 +66,10 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null,mapDispatchToProps) (Login);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Login);

@@ -8,7 +8,7 @@ import {logger} from 'redux-logger'
 const initialState = {
 }
 
-const middleware = [thunk,logger]
+const middleware = [thunk]
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)))
 

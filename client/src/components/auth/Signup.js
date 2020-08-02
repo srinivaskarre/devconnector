@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import axios from 'axios'
 import {setupAlert} from '../../redux/alert/alertAction'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { register } from '../../redux/auth/authActions'
 
@@ -58,6 +58,11 @@ const Signup = (props) => {
         // }catch(err){
         //     console.error(err)
         // }
+    }
+
+    //if Logged in already, redirect to dashboard
+    if(props.isAuthenticated){ 
+      return <Redirect to="/dashboard" />
     }
 
 
@@ -117,4 +122,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null,mapDispatchToProps) (Signup)
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Signup)
