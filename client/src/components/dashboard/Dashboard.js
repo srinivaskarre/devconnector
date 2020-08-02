@@ -1,8 +1,12 @@
 import React, { useEffect, Fragment } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, Link, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getProfile} from '../../redux/profile/profileAction'
 import Spinner from '../layout/Spinner'
+import DashBoardActions from './DashBoardActions'
+import Experience from './Experience'
+import Education from './Education'
+import {deleteAccount} from '../../redux/profile/profileAction'
 
 
 const Dashboard = (props) => {
@@ -27,7 +31,16 @@ const Dashboard = (props) => {
          <p> You do not have profile, please setup the profile</p>
          <Link to='/create-profile' className='btn btn-primary my-1'>Create Profile</Link> 
      </Fragment>
-    : <Fragment>has</Fragment>}
+    : <Fragment>
+        <DashBoardActions/>
+        <Experience experience={props.profile.profile.experience} />
+        <Education education={props.profile.profile.education}/>
+        <div className="my-2">
+            <button className="btn btn-danger" onClick={()=>props.deleteAccount(props.history)}>
+                <i className="fas fa-user-minus"/>Delete Account
+            </button>
+        </div>
+    </Fragment>}
     </>
 }
 
@@ -40,8 +53,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getCurrentProfile: ()=>dispatch(getProfile())
+        getCurrentProfile: ()=>dispatch(getProfile()),
+        deleteAccount: (history)=> dispatch(deleteAccount(history))
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (Dashboard)
+export default connect(mapStateToProps,mapDispatchToProps) (withRouter(Dashboard))

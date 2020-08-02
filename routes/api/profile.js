@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const User = require('../../model/User');
 const Profile = require('../../model/Profile');
+const Post = require('../../model/Post')
 const { check, validationResult } = require('express-validator');
 const config = require('config');
 const request = require('request');
@@ -77,15 +78,14 @@ router.post(
 
     let profile = await Profile.findOne({ user: req.user.id });
     if (profile) {
-      console.log(profileFields);
-      Profile.findOneAndUpdate(
+      
+      let updatedProfile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileFields },
         { new: true }
       );
-      return res.json(profile);
+      return res.status(200).json(updatedProfile);
     }
-
     profile = new Profile(profileFields);
     await profile.save();
     return res.status(201).json(profile);
@@ -124,11 +124,12 @@ router.get('/user/:user_id', async (req, res) => {
     res.status(500).send("Id doesn't exist");
   }
 });
-
+//Deletes Account
 router.delete('/delete', auth, async (req, res) => {
   //@ToDo delete posts as well
   try {
     console.log(req.user.id);
+    await Post.deleteMany({user: req.user.id});
     await Profile.findOneAndDelete({ user: req.user.id });
     await User.findByIdAndDelete(req.user.id);
     return res.json('Profile and user deleted successfully');

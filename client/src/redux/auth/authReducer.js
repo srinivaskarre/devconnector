@@ -7,6 +7,7 @@ import {
   USER_LOAD_FAIL,
   LOG_OUT,
 } from "./authTypes";
+import { ACCOUNT_DELETED } from "../profile/profileTypes";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -32,6 +33,7 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_FAIL:
     case LOG_OUT:
     case USER_LOAD_FAIL:
+    case ACCOUNT_DELETED:
       localStorage.removeItem("token");
       return {
         ...state,

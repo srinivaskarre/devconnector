@@ -1,6 +1,6 @@
 import { LOG_OUT } from "../auth/authTypes"
 
-const { GET_PROFILE, PROFILE_LOAD_ERROR } = require("./profileTypes")
+const { GET_PROFILE, PROFILE_LOAD_ERROR, UPDATE_PROFILE,CLEAR_PROFILE, GET_GITHUB_REPO, GET_ALL_PROFILES } = require("./profileTypes")
 
 const initialState = {
     profile: null,
@@ -15,6 +15,7 @@ export const profileReducer = (state = initialState,action) =>{
 
     switch(type) {
         case GET_PROFILE:
+        case UPDATE_PROFILE:
             return {
                 ...state,
                 profile: payload,
@@ -25,6 +26,27 @@ export const profileReducer = (state = initialState,action) =>{
                 ...state,
                 loading:false,
                 error: payload
+            }
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
+                repos: [],
+                loading: false
+
+            }
+        case GET_ALL_PROFILES: {
+            return {
+                ...state,
+                profiles: payload,
+                loading: false
+            }
+        }
+        case GET_GITHUB_REPO: 
+            return {
+                ...state,
+                repos: payload,
+                loading: false
             }
         case LOG_OUT: return initialState
         default: return state;
