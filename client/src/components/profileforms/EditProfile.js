@@ -66,7 +66,7 @@ const EditProfile = (props) => {
       youtube: !loading && profile.social && profile.social.youtube ? profile.social.youtube : "",
       instagram: !loading && profile.social && profile.social.instagram ? profile.social.instagram : "",
     });
-  }, [loading]);
+  }, [getProfile]);
 
   return (
     <Fragment>

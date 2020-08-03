@@ -6,10 +6,11 @@ import ProfileItem from './ProfileItem'
 
 const Profiles = (props) => {
     console.log(props.profile)
+    const {getProfiles} = props
     const {loading, profiles } = props.profile
     useEffect(()=>{
-        props.getProfiles()
-    }, [loading])
+        getProfiles()
+    }, [getProfiles])
     
     return (
         <Fragment>

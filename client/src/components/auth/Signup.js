@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react'
-import axios from 'axios'
 import {setupAlert} from '../../redux/alert/alertAction'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'

@@ -1,4 +1,4 @@
-import {GET_PROFILE, PROFILE_LOAD_ERROR, CREATE_PROFILE, UPDATE_PROFILE, CLEAR_PROFILE, ACCOUNT_DELETED, GET_ALL_PROFILES, GET_GITHUB_REPO} from './profileTypes'
+import {GET_PROFILE, PROFILE_LOAD_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, ACCOUNT_DELETED, GET_ALL_PROFILES, GET_GITHUB_REPO} from './profileTypes'
 import axios from 'axios'
 import { setupAlert } from '../alert/alertAction'
 
@@ -191,12 +191,6 @@ export const addEducation = (education, history) => {
 export const deleteExpereince = (expId) => {
     return async (dispatch)=> {
         try {
-            const config = {
-                header: {
-                    'Content-Type': 'application/json'
-                }
-            }
-
             const resp = await axios.delete(`/api/profile/experience/${expId}`)
             dispatch({
                 type: GET_PROFILE,
@@ -221,12 +215,6 @@ export const deleteExpereince = (expId) => {
 export const deleteEducation = (eduId) => {
     return async (dispatch)=> {
         try {
-            const config = {
-                header: {
-                    'Content-Type': 'application/json'
-                }
-            }
-
             const resp = await axios.delete(`/api/profile/education/${eduId}`)
             dispatch({
                 type: GET_PROFILE,
@@ -251,7 +239,7 @@ export const deleteAccount = (history) => {
     return async (dispatch) => {
         if(window.confirm('Are you sure? This can not be undone')){
         try {
-            const resp = await axios.delete('/api/profile/delete')
+            await axios.delete('/api/profile/delete')
             dispatch({
                 type:CLEAR_PROFILE
             })

@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react'
-import { Redirect, Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getProfile} from '../../redux/profile/profileAction'
 import Spinner from '../layout/Spinner'
@@ -15,11 +15,11 @@ const Dashboard = (props) => {
     //     return (<Redirect to='/'/>)
     // }
 
-
+    const {getCurrentProfile} = props
 
     useEffect(()=>{
-        props.getCurrentProfile()
-    }, [])
+        getCurrentProfile()
+    }, [getCurrentProfile])
     return props.profile.loading && props.profile.profile===null ? <Spinner /> : 
     <>
      <h1 className="large text-primary">Dashboard</h1>
